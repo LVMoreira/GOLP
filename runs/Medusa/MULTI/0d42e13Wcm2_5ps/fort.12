@@ -1,0 +1,39 @@
+&parameters
+  igeo=1, xmin=0.0, texit=2.5e-12,
+  ileft=0, iright=0,
+  alphal=0.0, alphar=0.0, betal=0.0, betar=0.0, itype=0, tau=0.0, trad=0.0,
+  iradia=1, ihydro=1, iheation=0, model=0, zmin=0.1, flf=1.0e6, inegpre=0,
+  nsplit=5,
+  dtmin=1.0e-18, dtinit=5.0e-15, dtmax=5.0e-13,
+  dtrvar=0.05, dttevar=1.0e12, dttivar=1.0e12, dtbreak=2.0, dtfactor=2.0,
+  texit=20e-12, nexit = 100000000,
+  dt_aout=0.0e0, ns_aout=1,
+  dt_bout=1.0e99, ns_bout=1,
+  irad_left=1, irad_right=1, nreduce=1
+/
+&layer
+  nc=200,
+  thick=0.9e-5,         ! 100 nm = 1e-5 cm
+  r0=4.5,               ! Ti ~solid density g/cc
+  te0=0.025, ti0=0.025, ! ~room-T in eV
+  zonpar=1.0,
+  material='Titanium'
+/
+&material
+  name='Titanium',
+  zi=22, ai=47.867,
+  eeos_file='Titanium.i304',
+  ieos_file='Titanium.i305',
+  z_file='Titanium.ZKEV',
+  planck_file='Titanium.PLANCK',
+  ross_file='Titanium.ROSS',
+  eps_id=-1
+/
+&pulse_wkb
+  inter=1,        ! from right
+  wl=0.8,          ! microns (800 nm)
+  pimax=4.2e19,    ! 1e15 W/cm^2 = 1e22 erg/s/cm^2
+  pitime=5.0e-14,  ! 50 fs FWHM
+  itype=1,         ! sin^2 envelope
+  delta=1.0
+/
