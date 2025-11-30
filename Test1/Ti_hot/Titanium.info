@@ -1,0 +1,52 @@
+=====================================================================
+Author: Rafael Ramis
+Institution: E.T.S.I.Aeronauticos, Universidad Politecnica de Madrid
+Address: P. Cardenal Cisneros 3, E-28040 Madrid (SPAIN)
+e-mail: rafael.ramis@upm.es
+=====================================================================
+Date: mié ago 13 18:46:06 CEST 2025
+=====================================================================
+Based on package [eos-1.0] and using external codes:
+   SNOP version [snop-0.2] (equations of state)
+   MPQEOS version [mpqeos-0.1] (opacities)
+=====================================================================
+Material name: Titanium
+Code number: 2015
+Atomic number (Z): 22
+Mass number (A): 47.867
+Solid density: 4.506 (g/cm**3)
+Bulk modulus: 1.1e+12 (g/cm/s**2)
+Maxwell's construction: NO
+Opacities: LTE
+Atomic numbers (Z): 22 
+Atomic masses (A): 47.867 
+Mass fractions: 1 
+Atom fractions: 1 
+Number of opacity groups: 20
+Frequency range (eV): 1-5000
+Remarks: standard settings used
+=====================================================================
+Tables: 
+   File=Titanium.i301     id=20150301 - inverted eos
+   File=Titanium.i304     id=20150304 - inverted eos for electrons
+   File=Titanium.i305     id=20150305 - inverted eos for ions
+   File=Titanium.PLANCK   id=20153000 - Planck multigroup opacity
+   File=Titanium.ROSS     id=20154000 - Rosseland multigroup opacity
+   File=Titanium.ZEV      id=20152000 - ionization (MULTI-*D format)
+   File=Titanium.ZKEV     id=20152000 - ionization (MULTI-fs format)
+=====================================================================
+NOTES:
+
+1) Each version of MULTI needs different tables:
+   MULTI-1D - i301, PLANCK, ROSS, EPS, ZEV
+   MULTI-2D - i301
+   MULTI-3D - i301
+   MULTI-fs - i304, i305, PLANCK, ROSS, EPS, ZKEV
+
+2) The table with normalized emissivity (EPS) is generated only when
+the Non-LTE option is active
+
+3) For MULTI-fs, all tables are concatenated in the same file
+and are identified by the ID number. In other versions the ID
+number is not used
+=====================================================================

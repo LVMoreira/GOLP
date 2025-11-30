@@ -1,0 +1,98 @@
+&parameters
+   title       = 'Ti 100nm, 800 nm laser, 50 fs FWHM, 1e15 W/cm^2',
+   igeo        = 1,            ! 1 = planar
+   xmin        = 0.0,
+   texit       = 1.0e-10,      ! 0.1 ns end time (in seconds)
+!-- boundaries (planar slab: both free)
+   ileft       = 0,
+   iright      = 0,
+   alphal      = 0.0,
+   alphar      = 0.0,
+!-- physics toggles
+   ihydro      = 1,
+   iradia      = 1,
+   iheation    = 1,
+!-- numerics and timestep control (in seconds)
+   dtmin       = 2.0e-15,      ! ~2 fs minimum step
+   dtinit      = 5.0e-14,      ! start around 50 fs
+   dtmax       = 2.0e-12,      ! cap ~2 ps
+   nsplit      = 5,
+   dtbreak     = 2.0,
+   dtfactor    = 2.0,
+   nexit       = 200000,
+!-- transport/model bits
+   flf         = 0.1,          ! flux limiter (classical default)
+   model       = 0,            ! electron collisions model = classical
+   inegpre     = 1,
+   zmin        = 0.1
+/
+&output
+   nplot       = 200,          ! dump every ~500 steps (timestep adapts)
+   nscreen     = 50,
+   iplot       = 1,
+/
+&materials
+  ! ---- Titanium tables (file names = the ones in your run dir) ----
+  ! i304 id = 20150304 (electron EOS), i305 id = 20150305 (ion EOS)
+  ! PLANCK id = 20153000, ROSS id = 20154000
+  ! ZKEV id = 20152000 (ionization model)
+  &material
+     name        = 'Titanium',
+     aw          = 47.87,          ! atomic weight
+     z           = 22,             ! atomic number
+     eeos_id     = 20150304,
+     eeos_file   = 'Titanium.i304',
+     ieos_id     = 20150305,
+     ieos_file   = 'Titanium.i305',
+     planck_id   = 20153000,
+     planck_file = 'Titanium.PLANCK',
+     ross_id     = 20154000,
+     ross_file   = 'Titanium.ROSS',
+     z_id        = 20152000,
+     z_file      = 'Titanium.ZKEV'
+  /
+/
+&layers
+  ! Single 100 nm titanium foil. Thickness units are cm.
+  ! 100 nm = 1.0e-5 cm. Use ~200 cells so dt, conduction, and skin depth are resolvable.
+  &layer
+     material = 'Titanium',
+     thick    = 1.0e-5,       ! 100 nm
+     nc       = 200,          ! number of cells through thickness
+     r0       = 4.50,         ! initial mass density [g/cc]
+     te0      = 0.025,        ! e- temperature [eV]
+     ti0      = 0.025,        ! ion temperature [eV]
+     zonpar   = 1             ! uniform zoning
+  /
+/
+&laser_3d
+   ! Units for the following table:
+   pimax  = 1,        ! power unit = TW
+   ptime  = 1,        ! time unit = ns
+   iwl    = 1,        ! use wl for absorption model
+   wl     = 0.8e-4,   ! wavelength in cm (800 nm = 8e-5 cm = 0.8e-4)
+   ipulse = 4,        ! use tabulated shape from &pulse_shape
+   nr     = 1,        ! number of rays (1D planar: a single on-axis ray is fine)
+   rmax   = 0.05,     ! spot radius span for ray bundle [mm]; not used for nr=1
+   fwhm   = 0.05,     ! beam FWHM diameter at focus [mm]; **50 μm**
+   bexp   = 2.0       ! 2 => Gaussian transverse profile
+/
+&pulse_shape
+   ! Gaussian temporal shape, FWHM = 50 fs.
+   ! Times below are in **ns**; powers are in **TW**.
+   ! Peak intensity target: 1e15 W/cm^2 with 50 μm FWHM spot -> ~0.01416 TW peak power.
+   ntab = 11,
+   ptab =
+      0.000000000e+00   1.918033315e-04
+      2.125000000e-05   1.416361422e-03
+      4.250000000e-05   8.789396615e-03
+      6.375000000e-05   3.947110925e-02
+      8.500000000e-05   1.205166182e-01
+      1.062500000e-04   2.832727348e-01
+      1.275000000e-04   4.905168621e-01
+      1.487500000e-04   6.338472329e-01
+      1.700000000e-04   6.994317558e-01
+      1.912500000e-04   6.770511954e-01
+      2.125000000e-04   5.684273943e-01
+/
+

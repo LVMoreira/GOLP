@@ -1,0 +1,2 @@
+slurmstepd: error: execve(): /projects/F202508150CPCAA3/Lucas/MULTI_FS/bin/multi-ife-arm: Exec format error
+srun: error: cna0002: task 0: Exited with exit code 8

@@ -1,0 +1,8 @@
+&layer
+  nc=200,
+  thick=1.0e-5,
+  r0=4.5,
+  te0=0.025, ti0=0.025,
+  zonpar=1.0,
+  material='Titanium'
+/

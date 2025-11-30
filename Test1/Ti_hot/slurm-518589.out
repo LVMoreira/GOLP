@@ -1,0 +1,2 @@
+slurmstepd: error: execve(): /projects/F202508150CPCAA3/MULTI_FS/bin/multi-ife: Exec format error
+srun: error: cna0002: task 0: Exited with exit code 8

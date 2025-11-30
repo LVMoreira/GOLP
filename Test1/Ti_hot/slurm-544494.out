@@ -1,0 +1,397 @@
+ ==============================================================================
+  
+  
+    M    M  U    U  LL      TTTTTT  IIIIII          IIIIII  FFFFFF  EEEEEE  
+    MM  MM  U    U  LL      TTTTTT  IIIIII          IIIIII  FFFFFF  EEEEEE  
+    MMMMMM  U    U  LL        TT      II              II    F       E       
+    M MM M  U    U  LL        TT      II              II    F       E       
+    M    M  U    U  LL        TT      II    ======    II    FFFFF   EEEEE   
+    M    M  U    U  LL        TT      II              II    F       E       
+    M    M  U    U  LL        TT      II              II    F       E       
+    M    M  UUUUUU  LLLLLL    TT    IIIIII          IIIIII  F       EEEEEE  
+    M    M   UUUU   LLLLLL    TT    IIIIII          IIIIII  F       EEEEEE  
+  
+  
+ MULTI-IFE - A One-Dimensional Computer Code for
+ Inertial Fusion Energy (IFE) Target Simulations
+  
+ R.Ramis and J. Meyer-ter-Vehn
+  
+ Version March 4, 2015
+  
+ ==============================================================================
+  
+ subroutine print_parameters
+  
+ problem definition (general):
+  
+ igeo        =               1 (planar geometry)
+ xmin        =         0.00000 (initial value x at left bound.)
+ texit       =    0.250000E-11 (end of simulation)
+ nfuel       =               0 (cells with DT mixture)
+  
+ problem definition (boundary conditions):
+  
+ iright      =               0 (free expansion at RHS)
+ ileft       =               0 (free expansion at LHS)
+ alphal      =         0.00000 (reflected rad. frac. at L)
+ alphar      =         0.00000 (reflected rad. frac. at R)
+ betal       =         0.00000 (rad. pulse coupling at L)
+ betar       =         0.00000 (rad. pulse coupling at R)
+ tau         =         0.00000 (rad. pulse duration)
+ trad        =         0.00000 (rad. pulse peak temperature)
+  
+ problem definition (modeling options):
+  
+ iradia      =               1 (enable radiation)
+ ihydro      =               1 (enable hydrodynamics)
+ iheation    =               0 (disable ion heat conduction)
+ model       =               0 (classical electron collisions)
+ zmin        =        0.100000 (minimum ionization)
+ flf         =    0.100000E+07 (flux limit factor)
+ inegpre     =               0 (force positive Pe)
+  
+ numerical options:
+  
+ n           =             200 (number of cells)
+ ng          =              20 (number of groups)
+ nsplit      =               5 (requested num. of subcycles)
+ msplit      =               5 (actual num. of subcycles)
+ dtmin       =    0.100000E-17 (minimum dt)
+ dtmax       =    0.500000E-12 (maximum dt)
+ dtinit      =    0.500000E-14 (initial dt)
+ dtrvar      =    0.500000E-01 (nominal density var.)
+ dttevar     =    0.100000E+13 (nominal elec. temp. var.)
+ dttivar     =    0.100000E+13 (nominal ion temp. var.)
+ dtbreak     =         2.00000 (break step factor)
+ dtfactor    =         2.00000 (dt increment factor)
+ nexit       =          100000 (maximum number of steps)
+ iwctrl      =               0 (fixed deposition factors)
+  
+ group distribution:
+  
+                fmin            fmax
+  
+       1     1.00000         10.0000    
+       2     10.0000         50.0000    
+       3     50.0000         100.000    
+       4     100.000         150.000    
+       5     150.000         250.000    
+       6     250.000         400.000    
+       7     400.000         550.000    
+       8     550.000         700.000    
+       9     700.000         900.000    
+      10     900.000         1200.00    
+      11     1200.00         1600.00    
+      12     1600.00         2000.00    
+      13     2000.00         2200.00    
+      14     2200.00         2400.00    
+      15     2400.00         2600.00    
+      16     2600.00         2800.00    
+      17     2800.00         3100.00    
+      18     3100.00         3500.00    
+      19     3500.00         4000.00    
+      20     4000.00         5000.00    
+  
+ output control:
+  
+ dt_aout     =         0.00000 (ascii output time interval)
+ ns_aout     =               1 (ascii output step interval)
+ dt_bout     =    0.100000+100 (bin. output time interval)
+ ns_bout     =               1 (bin. output step interval)
+ irad_left   =               1 (left spectra interf.)
+ irad_right  =               1 (right spectra interf.)
+ nreduce     =               1 (reduce spatial resolution)
+  
+ ==============================================================================
+  
+ subroutine print_layer_definition
+  
+ i           =               1 (layer number)
+ material    =        Titanium (name)
+ thick       =    0.100000E-04 (thickness)
+ r0          =         4.50000 (initial density)
+ te0         =    0.250000E-01 (initial electron temperature)
+ ti0         =    0.250000E-01 (initial ion temperature)
+ nc          =             200 (number of cells)
+ zonpar      =         1.00000 (griding parameter)
+  
+ ==============================================================================
+  
+ subroutine print_material
+  
+ name        =        Titanium (material name)
+ zi          =         22.0000 (atomic number)
+ ai          =         47.8670 (atomic weight)
+  
+ eeos_file   =   Titanium.i304 (electron EOS file)
+ eeos_id     =               0 (electron EOS id)
+ nr          =              77 (number of tabulated densities)
+ ne          =             100 (number of tabulated energies)
+ rmin        =         0.00000 (min. density)
+ rmax        =    0.253391E+07 (max. density)
+ tmin        =        0.596558 (min. temperature)
+ tmax        =         39294.5 (max. temperature)
+ pmin        =         0.00000 (min. pressure)
+ pmax        =    0.163250E+24 (max. pressure)
+  
+ ieos_file   =   Titanium.i305 (ion EOS file)
+ ieos_id     =               0 (ion EOS id)
+ nr          =              77 (number of tabulated densities)
+ ne          =             100 (number of tabulated energies)
+ rmin        =         0.00000 (min. density)
+ rmax        =    0.253391E+07 (max. density)
+ tmin        =         99.9953 (min. temperature)
+ tmax        =         26634.1 (max. temperature)
+ pmin        =         0.00000 (min. pressure)
+ pmax        =    0.364734E+22 (max. pressure)
+  
+ z_file      =   Titanium.ZKEV (Z file)
+ z_id        =               0 (Z id)
+ nr          =              20 (number of tabulated densities)
+ rmin        =    0.100000E-05 (min. density)
+ rmax        =         100.000 (max. density)
+ nt          =              20 (number of tabulated temperatures)
+ tmin        =    0.100000E-02 (min. temperature)
+ tmax        =         100.000 (max. temperature)
+ omin        =    0.702764E-02 (min. value)
+ omax        =         22.0000 (max. value)
+  
+ planck_file = Titanium.PLANCK (Planck file)
+ planck_id   =               0 (Planck id)
+ nr          =              20 (number of tabulated densities)
+ rmin        =    0.100000E-05 (min. density)
+ rmax        =         100.000 (max. density)
+ nt          =              20 (number of tabulated temperatures)
+ tmin        =         1.00000 (min. temperature)
+ tmax        =         100000. (max. temperature)
+ ng          =              20 (number of groups)
+ fmin        =         1.00000 (min. frequency)
+ fmax        =         5000.00 (max. frequency)
+  
+                fmin            fmax
+  
+       1     1.00000         10.0000    
+       2     10.0000         50.0000    
+       3     50.0000         100.000    
+       4     100.000         150.000    
+       5     150.000         250.000    
+       6     250.000         400.000    
+       7     400.000         550.000    
+       8     550.000         700.000    
+       9     700.000         900.000    
+      10     900.000         1200.00    
+      11     1200.00         1600.00    
+      12     1600.00         2000.00    
+      13     2000.00         2200.00    
+      14     2200.00         2400.00    
+      15     2400.00         2600.00    
+      16     2600.00         2800.00    
+      17     2800.00         3100.00    
+      18     3100.00         3500.00    
+      19     3500.00         4000.00    
+      20     4000.00         5000.00    
+  
+ ross_file   =   Titanium.ROSS (Rosseland file)
+ ross_id     =               0 (Rosseland id)
+ nr          =              20 (number of tabulated densities)
+ rmin        =    0.100000E-05 (min. density)
+ rmax        =         100.000 (max. density)
+ nt          =              20 (number of tabulated temperatures)
+ tmin        =         1.00000 (min. temperature)
+ tmax        =         100000. (max. temperature)
+ ng          =              20 (number of groups)
+ fmin        =         1.00000 (min. frequency)
+ fmax        =         5000.00 (max. frequency)
+  
+                fmin            fmax
+  
+       1     1.00000         10.0000    
+       2     10.0000         50.0000    
+       3     50.0000         100.000    
+       4     100.000         150.000    
+       5     150.000         250.000    
+       6     250.000         400.000    
+       7     400.000         550.000    
+       8     550.000         700.000    
+       9     700.000         900.000    
+      10     900.000         1200.00    
+      11     1200.00         1600.00    
+      12     1600.00         2000.00    
+      13     2000.00         2200.00    
+      14     2200.00         2400.00    
+      15     2400.00         2600.00    
+      16     2600.00         2800.00    
+      17     2800.00         3100.00    
+      18     3100.00         3500.00    
+      19     3500.00         4000.00    
+      20     4000.00         5000.00    
+  
+ eps_file    =         fort.13 (Emissivity file)
+ eps_id      =              -1 (Emissivity id)
+ ng          =               0 (table not loaded)
+  
+ ==============================================================================
+  
+ subroutine print_laser_wkb
+  
+ pimax       =    0.100000E+22 (nominal laser power)
+ pitime      =    0.500000E-13 (nominal laser time)
+ wl          =        0.800000 (laser wavelenght)
+ inter       =              -1 (laser comes from LHS)
+ delta       =         1.00000 (frac. abs. at crit. dens.)
+ itype       =               1 (sin**2 shape)
+ dncrt       =    0.174190E+14 (critical density)
+  
+ ==============================================================================
+  
+ subroutine integrate
+  
+   step      time          dt        max-var
+  
+     1  0.00000E+00  0.50000E-14  0.16873E-02
+     2  0.50000E-14  0.10000E-13  0.16596E+00
+     3  0.15000E-13  0.20000E-13  0.15386E+01
+     4  0.35000E-13  0.12999E-13  0.13133E+01
+     5  0.47999E-13  0.98976E-14  0.10248E+01
+     6  0.57897E-13  0.96577E-14  0.97256E+00
+     7  0.67554E-13  0.99302E-14  0.91316E+00
+     8  0.77485E-13  0.10875E-13  0.88482E+00
+     9  0.88359E-13  0.12290E-13  0.86221E+00
+    10  0.10065E-12  0.14254E-13  0.84626E+00
+    11  0.11490E-12  0.16844E-13  0.83701E+00
+    12  0.13175E-12  0.20124E-13  0.83268E+00
+    13  0.15187E-12  0.24167E-13  0.82959E+00
+    14  0.17604E-12  0.29132E-13  0.82754E+00
+    15  0.20517E-12  0.35203E-13  0.82603E+00
+    16  0.24037E-12  0.42617E-13  0.82872E+00
+    17  0.28299E-12  0.51425E-13  0.12206E+01
+    18  0.33441E-12  0.42130E-13  0.98088E+00
+    19  0.37654E-12  0.42951E-13  0.79560E+00
+    20  0.41950E-12  0.53985E-13  0.11796E+01
+    21  0.47348E-12  0.45765E-13  0.10459E+01
+    22  0.51925E-12  0.43757E-13  0.95274E+00
+    23  0.56300E-12  0.45928E-13  0.94383E+00
+    24  0.60893E-12  0.48661E-13  0.96819E+00
+    25  0.65759E-12  0.50260E-13  0.10616E+01
+    26  0.70785E-12  0.47342E-13  0.10905E+01
+    27  0.75519E-12  0.43412E-13  0.10011E+01
+    28  0.79860E-12  0.43362E-13  0.10178E+01
+    29  0.84197E-12  0.42606E-13  0.10259E+01
+    30  0.88457E-12  0.41529E-13  0.10735E+01
+    31  0.92610E-12  0.38685E-13  0.10660E+01
+    32  0.96479E-12  0.36292E-13  0.10403E+01
+    33  0.10011E-11  0.34884E-13  0.10365E+01
+    34  0.10360E-11  0.33656E-13  0.10354E+01
+    35  0.10696E-11  0.32506E-13  0.10529E+01
+    36  0.11021E-11  0.30873E-13  0.10312E+01
+    37  0.11330E-11  0.29940E-13  0.10317E+01
+    38  0.11629E-11  0.29020E-13  0.10285E+01
+    39  0.11920E-11  0.28215E-13  0.10232E+01
+    40  0.12202E-11  0.27575E-13  0.10210E+01
+    41  0.12477E-11  0.27007E-13  0.10207E+01
+    42  0.12748E-11  0.26460E-13  0.10176E+01
+    43  0.13012E-11  0.26003E-13  0.10088E+01
+    44  0.13272E-11  0.25775E-13  0.10067E+01
+    45  0.13530E-11  0.25604E-13  0.10159E+01
+    46  0.13786E-11  0.25203E-13  0.10139E+01
+    47  0.14038E-11  0.24857E-13  0.10091E+01
+    48  0.14287E-11  0.24631E-13  0.10093E+01
+    49  0.14533E-11  0.24405E-13  0.10009E+01
+    50  0.14777E-11  0.24383E-13  0.10064E+01
+    51  0.15021E-11  0.24228E-13  0.10073E+01
+    52  0.15263E-11  0.24054E-13  0.10037E+01
+    53  0.15504E-11  0.23966E-13  0.10024E+01
+    54  0.15743E-11  0.23910E-13  0.99975E+00
+    55  0.15982E-11  0.23916E-13  0.10058E+01
+    56  0.16221E-11  0.23777E-13  0.10014E+01
+    57  0.16459E-11  0.23743E-13  0.10000E+01
+    58  0.16697E-11  0.23742E-13  0.10042E+01
+    59  0.16934E-11  0.23643E-13  0.98825E+00
+    60  0.17171E-11  0.23924E-13  0.10114E+01
+    61  0.17410E-11  0.23653E-13  0.99977E+00
+    62  0.17646E-11  0.23659E-13  0.10023E+01
+    63  0.17883E-11  0.23604E-13  0.99857E+00
+    64  0.18119E-11  0.23638E-13  0.99931E+00
+    65  0.18355E-11  0.23654E-13  0.10034E+01
+    66  0.18592E-11  0.23574E-13  0.99689E+00
+    67  0.18828E-11  0.23647E-13  0.99933E+00
+    68  0.19064E-11  0.23663E-13  0.98724E+00
+    69  0.19301E-11  0.23969E-13  0.10127E+01
+    70  0.19540E-11  0.23668E-13  0.99767E+00
+    71  0.19777E-11  0.23723E-13  0.10013E+01
+    72  0.20014E-11  0.23692E-13  0.99532E+00
+    73  0.20251E-11  0.23804E-13  0.99928E+00
+    74  0.20489E-11  0.23821E-13  0.10030E+01
+    75  0.20727E-11  0.23751E-13  0.99560E+00
+    76  0.20965E-11  0.23855E-13  0.99902E+00
+    77  0.21204E-11  0.23879E-13  0.98724E+00
+    78  0.21442E-11  0.24187E-13  0.10113E+01
+    79  0.21684E-11  0.23917E-13  0.99749E+00
+    80  0.21923E-11  0.23977E-13  0.99987E+00
+    81  0.22163E-11  0.23981E-13  0.99587E+00
+    82  0.22403E-11  0.24080E-13  0.10006E+01
+    83  0.22644E-11  0.24064E-13  0.10006E+01
+    84  0.22884E-11  0.24050E-13  0.99496E+00
+    85  0.23125E-11  0.24172E-13  0.10006E+01
+    86  0.23367E-11  0.24156E-13  0.98681E+00
+    87  0.23608E-11  0.24479E-13  0.10098E+01
+    88  0.23853E-11  0.24240E-13  0.99675E+00
+    89  0.24095E-11  0.24319E-13  0.99893E+00
+    90  0.24339E-11  0.24345E-13  0.99490E+00
+    91  0.24582E-11  0.24470E-13  0.10008E+01
+    92  0.24827E-11  0.24450E-13  0.10004E+01
+  
+ ==============================================================================
+  
+ subroutine print_energies
+  
+ integration steps
+  
+ itry        =              92 (total)
+ istep       =              92 (valid)
+  
+ initial energies
+  
+ enie0       =        -67414.4 (electron energy)
+ enii0       =         73616.9 (ion energy)
+ enia0       =         0.00000 (alpha energy)
+ enki0       =         0.00000 (kinetic energy)
+  
+ actual energies
+  
+ enie        =    0.232736E+08 (electron energy)
+ enii        =    0.568258E+07 (ion energy)
+ enia        =         0.00000 (alpha energy)
+ enki        =    0.207988E+08 (kinetic energy)
+  
+ energy deposition
+  
+ delas       =    0.500011E+08 (laser)
+ derad       =        -252404. (thermal radiation)
+ defus       =         0.00000 (fusion)
+  
+ radiation input/output
+  
+ radoutl     =         223453. (left boundary output)
+ radinl      =   -0.137254E-11 (left boundary input)
+ radoutr     =         28950.1 (right boundary output)
+ radinr      =   -0.324410E-12 (right boundary input)
+  
+ miscellaneous values
+  
+ laser       =    0.524447E+08 (laser energy)
+ alphas      =         0.00000 (alpha particles losses)
+ fusion      =         0.00000 (fusion energy)
+ neutrons    =         0.00000 (fusion neutrons)
+ error       =    0.325670E-11 (relative error in energy)
+  
+ ==============================================================================
+  
+ normal program termination
+  
+ used memory check
+  
+ memory      =               0 (allocations - deallocations)
+  
+ ==============================================================================
