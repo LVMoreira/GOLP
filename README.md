@@ -60,19 +60,44 @@ In order to achieve more accurate simulation results, the maxwell solver was use
 
 The project follows a relative path structure to ensure reproducibility across different machines (handled via Python's pathlib).
 ```
-├── inputs/                 # MULTI-fs input files (*.in)
-├── eos/                    # Equation of State tables (e.g., SESAME, QEOS for Ti)
-├── runs/                   # Simulation output data
-│   └── Medusa/
-│       └── MULTI/
-│           └── 0d42e13Wcm2_5ps/   # Specific run case
-│               ├── fort.11        # MULTI time-step data
-│               └── Med103_...txt  # Medusa comparison data
-├── scripts/                # Python post-processing scripts
-│   ├── load_data.py        # Data parsing logic
-│   └── plot_profiles.py    # Matplotlib visualization
-├── notebooks/              # Jupyter notebooks for interactive analysis
-└── README.md
+GOLP/
+├── _docs/
+│   └── 2015-MULTI-IFE-1.pdf       # Reference documentation
+├── runs/
+│   ├── _scripts/                  # Shared Jupyter notebooks for plotting
+│   │   ├── Plotter_Overlay.ipynb
+│   │   └── Plotter.ipynb
+│   ├── 7eV_run/                   # Low energy test case
+│   │   ├── plots/
+│   │   ├── fort.11                # Main MULTI-fs output file
+│   │   ├── fort.12
+│   │   ├── plotter_overlay.py
+│   │   └── plotter.py
+│   ├── MaxwellSolver/             # Runs utilizing the Helmholtz wave solver
+│   │   ├── 0d42e13Wcm2_5ps/
+│   │   ├── 0d70e13Wcm2_5ps/
+│   │   ├── 1d12e13Wcm2_5ps/
+│   │   ├── 1d79e13Wcm2_5ps/
+│   │   └── 3d28e13Wcm2_5ps/
+│   ├── Medusa/                    # Comparison studies (Medusa vs MULTI-fs)
+│   │   ├── 0d42e13Wcm2_5ps/
+│   │   │   ├── plots/             # Generated PDF profiles (Density, Te, Ti)
+│   │   │   │   ├── density_pos.pdf
+│   │   │   │   ├── Te_pos.pdf
+│   │   │   │   └── Ti_pos.pdf
+│   │   │   ├── fort.11
+│   │   │   ├── fort.12
+│   │   │   ├── Med103_...ps.txt   # Medusa simulation data for validation
+│   │   │   ├── Plotter_Overlay.ipynb
+│   │   │   └── script.py
+│   │   ├── 0d70e13Wcm2_5ps/
+│   │   ├── 1d12e13Wcm2_5ps/
+│   │   ├── 1d79e13Wcm2_5ps/
+│   │   └── 3d28e13Wcm2_5ps/
+│   └── Test1/
+├── plot7ev.py
+├── README.md                      # Project documentation
+└── script.py
 ```
 
 
