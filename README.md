@@ -33,7 +33,7 @@ These simulations are performed using MULTI-fs and benchmarked against/compared 
 All simulation data was obtained by running MULTI-fs on an HPC cluster (Deucalion). The input files are provided in the repository (fort.12), along with the respective output file (fort.11). Different approaches were implemented in order to obtain simulation results that agree with experimental data. 
 
 ### Pulse_Wkb Approach:
-At first, the pulse was simulated using the wkb approximation. However, after comparing results with different simulation algorithms, some inconsistencies were detected (very early forming shockwave, extremelly high ionic and electronic temperatures).
+At first, the pulse was simulated using the wkb approximation. However, after comparing results with different simulation algorithms, some inconsistencies were detected (very early forming shockwave, extremelly high ionic and electronic temperatures). This approach is best for large targets and nanosecond laser pulses.
 
 **Sample parameter block:**
 ```
@@ -48,57 +48,25 @@ At first, the pulse was simulated using the wkb approximation. However, after co
 ```
 
 ### Maxwell solver approach:
-In order to achieve more accurate simulation results, the maxwell solver was used. This 
+In order to achieve more accurate simulation results, the maxwell solver was used. This solver solves the Helmholtz equation ($\nabla^2 E + k^2 (x)E = 0$) directly, reducing errors related to steep gradients, skin effect and interference patterns near the surface.
 
+**Sample parameter block:**
+```
+&pulse_maxwell
+  inter=1,        ! from right
+  wl=0.8,          ! microns (800 nm)
+  pimax=4.2e19,    ! 1e15 W/cm^2 = 1e22 erg/s/cm^2
+  pitime=5.0e-14,  ! 50 fs FWHM
+  itype=1,         ! sin^2 envelope
+  idep = 10
+  angle = 0.0
+  pol = 'p'
+/
 
-
-
-
-
-
-## . Directory Structure
+```
+## 3. Directory Structure
 
 The project follows a relative path structure to ensure reproducibility across different machines (handled via Python's pathlib).
-```
-GOLP/
-├── _docs/
-│   └── 2015-MULTI-IFE-1.pdf       # Reference documentation
-├── runs/
-│   ├── _scripts/                  # Shared Jupyter notebooks for plotting
-│   │   ├── Plotter_Overlay.ipynb
-│   │   └── Plotter.ipynb
-│   ├── 7eV_run/                   # Low energy test case
-│   │   ├── plots/
-│   │   ├── fort.11                # Main MULTI-fs output file
-│   │   ├── fort.12
-│   │   ├── plotter_overlay.py
-│   │   └── plotter.py
-│   ├── MaxwellSolver/             # Runs utilizing the Helmholtz wave solver
-│   │   ├── 0d42e13Wcm2_5ps/
-│   │   ├── 0d70e13Wcm2_5ps/
-│   │   ├── 1d12e13Wcm2_5ps/
-│   │   ├── 1d79e13Wcm2_5ps/
-│   │   └── 3d28e13Wcm2_5ps/
-│   ├── Medusa/                    # Comparison studies (Medusa vs MULTI-fs)
-│   │   ├── 0d42e13Wcm2_5ps/
-│   │   │   ├── plots/             # Generated PDF profiles (Density, Te, Ti)
-│   │   │   │   ├── density_pos.pdf
-│   │   │   │   ├── Te_pos.pdf
-│   │   │   │   └── Ti_pos.pdf
-│   │   │   ├── fort.11
-│   │   │   ├── fort.12
-│   │   │   ├── Med103_...ps.txt   # Medusa simulation data for validation
-│   │   │   ├── Plotter_Overlay.ipynb
-│   │   │   └── script.py
-│   │   ├── 0d70e13Wcm2_5ps/
-│   │   ├── 1d12e13Wcm2_5ps/
-│   │   ├── 1d79e13Wcm2_5ps/
-│   │   └── 3d28e13Wcm2_5ps/
-│   └── Test1/
-├── plot7ev.py
-├── README.md                      # Project documentation
-└── script.py
-```
 
 
 
