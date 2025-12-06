@@ -36,14 +36,14 @@ All simulation data was obtained by running MULTI-fs on an HPC cluster (Deucalio
 At first, the pulse was simulated using the wkb approximation. However, after comparing results with different simulation algorithms, some inconsistencies were detected (very early forming shockwave, extremelly high ionic and electronic temperatures).
 
 **Sample parameter block:**
-&pulse_wkb
+´´´&pulse_wkb
   inter=1,        ! from right
   wl=0.8,          ! microns (800 nm)
   pimax=4.2e19,    ! 1e15 W/cm^2 = 1e22 erg/s/cm^2
   pitime=5.0e-14,  ! 50 fs FWHM
   itype=1,         ! sin^2 envelope
   delta=1.0
-/
+/´´´
 
 ### Maxwell solver approach:
 In order to achieve more accurate simulation results, the maxwell solver was used. This 
