@@ -11,11 +11,6 @@
 ## 1. Project Overview
 
 This repository contains configuration files, simulation outputs, and post-processing scripts for analyzing the interaction of high-intensity, short-pulse lasers with solid Titanium targets.
-
-**Simulation Code:** The study utilizes MULTI-fs, a specialized variant of the MULTI code family tailored for the femtosecond and picosecond regimes.
-- Lineage: It is derived from MULTI-IFE (Inertial Fusion Energy), which itself is based on the original MULTI (MULTI-group Radiation Transport) code.
-- Method: It is a 1-D Radiation-Hydrodynamics code operating in a Lagrangian frame, meaning the computational grid moves with the fluid. This allows for precise tracking of steep density gradients and material interfaces during expansion.
-
 The primary goal is to simulate the hydrodynamic evolution of the target, specifically tracking:
 
 - Electron and Ion Temperatures (Te​,Ti​)
@@ -27,6 +22,10 @@ The primary goal is to simulate the hydrodynamic evolution of the target, specif
 - Ionization dynamics
 
 These simulations are performed using MULTI-fs and benchmarked against/compared with Medusa simulations and experimental data.
+
+**Simulation Code:** The study utilizes MULTI-fs, a specialized variant of the MULTI code family tailored for the femtosecond and picosecond regimes.
+- Lineage: It is derived from MULTI-IFE (Inertial Fusion Energy), which itself is based on the original MULTI (MULTI-group Radiation Transport) code.
+- Method: It is a 1-D Radiation-Hydrodynamics code operating in a Lagrangian frame, meaning the computational grid moves with the fluid. This allows for precise tracking of steep density gradients and material interfaces during expansion.
 
 ## 2. Simulation Procedures:
 
