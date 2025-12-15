@@ -35,7 +35,7 @@
   pimax=7.0e19,    ! 1e15 W/cm^2 = 1e22 erg/s/cm^2
   pitime=5.0e-14,  ! 50 fs FWHM
   itype=1,         ! sin^2 envelope
-  idep = 10
-  angle = 0.0
-  pol = 'p'
+  idep=10,
+  angle=0.0,
+  pol='p',
 /
